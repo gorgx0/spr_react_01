@@ -7,8 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -22,7 +21,10 @@ public class MenuApiTest {
         this.mockMvc.perform(get("/api/menu"))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(content().json("[{\"label\": \"Menu01\"}, {\"label\": \"Menu02\"}, {\"label\": \"Menu03\"}]"));
+                .andExpect(jsonPath("$").isArray())
+                .andExpect(jsonPath("$[0].label").value("Menu01"))
+                .andExpect(jsonPath("$[1].label").value("Menu02"))
+                .andExpect(jsonPath("$[2].label").value("Menu03"));
     }
 
 }
