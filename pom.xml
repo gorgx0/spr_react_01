@@ -74,7 +74,7 @@
 							<goal>npm</goal>
 						</goals>
 						<configuration>
-							<arguments>run build-prod</arguments>
+							<arguments>run build-prod-mvn</arguments>
 						</configuration>
 					</execution>
 
@@ -82,6 +82,26 @@
 
 				<configuration>
 					<workingDirectory>src/main/react</workingDirectory>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<artifactId>maven-clean-plugin</artifactId>
+				<configuration>
+					<filesets>
+						<fileset>
+							<directory>src/main/react</directory>
+							<includes>
+								<include>dist/*.*</include>
+							</includes>
+						</fileset>
+						<fileset>
+							<directory>src/main/resources/static</directory>
+							<includes>
+								<include>*.*</include>
+							</includes>
+						</fileset>
+					</filesets>
 				</configuration>
 			</plugin>
 		</plugins>
