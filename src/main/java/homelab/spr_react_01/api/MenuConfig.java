@@ -11,22 +11,33 @@ import org.springframework.web.bind.annotation.RestController;
 public class MenuConfig {
 
     @GetMapping
-    public MainMenuItem[] getMainMenu() {
-        return new MainMenuItem[]
-                {new MainMenuItem("Menu01"),
-                new MainMenuItem("Menu02"),
-                new MainMenuItem("Menu03")};
+    public MenuItem[] getMainMenu() {
+        return new MenuItem[]
+                {new MenuItem("Menu01"),
+                new MenuItem("Menu02", new MenuItem[] {new MenuItem("SubMenu01"), new MenuItem("SubMenu02"), new MenuItem("SubMenu03")}),
+                new MenuItem("Menu03")};
     }
 
-    class MainMenuItem {
+    class MenuItem {
         private final String label;
+        private final MenuItem[] submenu;
 
-        private MainMenuItem(String label) {
+        private MenuItem(String label, MenuItem[] submenu) {
             this.label = label;
+            this.submenu = submenu;
+        }
+
+        public MenuItem(String label) {
+            this.label = label;
+            this.submenu = null;
         }
 
         public String getLabel() {
             return label;
+        }
+
+        public MenuItem[] getSubmenu() {
+            return submenu;
         }
     }
 }

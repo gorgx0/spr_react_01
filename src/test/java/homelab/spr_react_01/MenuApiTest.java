@@ -23,8 +23,14 @@ public class MenuApiTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$").isArray())
                 .andExpect(jsonPath("$[0].label").value("Menu01"))
+                .andExpect(jsonPath("$[0].submenu").doesNotExist())
                 .andExpect(jsonPath("$[1].label").value("Menu02"))
-                .andExpect(jsonPath("$[2].label").value("Menu03"));
+                .andExpect(jsonPath("$[1].submenu").isArray())
+                .andExpect(jsonPath("$[1].submenu[0].label").value("SubMenu01"))
+                .andExpect(jsonPath("$[1].submenu[1].label").value("SubMenu02"))
+                .andExpect(jsonPath("$[1].submenu[2].label").value("SubMenu03"))
+                .andExpect(jsonPath("$[2].label").value("Menu03"))
+                .andExpect(jsonPath("$[2].submenu").doesNotExist());
     }
 
 }

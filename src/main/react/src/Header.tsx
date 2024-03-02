@@ -7,13 +7,14 @@ interface Props {
     brand: string
 }
 
-interface MainMenuItem {
+interface MenuItem {
     label: string
+    submenu: MenuItem[]
 }
 
 const Header = ({brand}: Props):React.JSX.Element => {
 
-    const [menuItems, setMenuItems] = useState<MainMenuItem[]>([{ label: "error fetching menu" }])
+    const [menuItems, setMenuItems] = useState<MenuItem[]>([{ label: "error fetching menu", submenu: null as MenuItem[] }])
 
     useEffect(() => {
         console.log('Header mounted')
@@ -23,7 +24,10 @@ const Header = ({brand}: Props):React.JSX.Element => {
             console.log(data)
             return data
         }
-        fetchData('http://localhost:8080/api/menu').then(r => setMenuItems(r as MainMenuItem[]))
+        fetchData('http://localhost:8080/api/menu').then(r => {
+            debugger
+            setMenuItems(r as MenuItem[])
+        } )
     }, [])
 
    return (
@@ -38,6 +42,28 @@ const Header = ({brand}: Props):React.JSX.Element => {
                    <ul className="navbar-nav">
                        {
                            menuItems.map((item, index) => {
+                               if(item.submenu) {
+                                   console.log('submenu', item.submenu)
+                                      return (
+                                        <li className="nav-item dropdown" key={index}>
+                                             <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                                 data-bs-toggle="dropdown" aria-expanded="false">
+                                                  {item.label}
+                                             </a>
+                                             <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
+                                                  {
+                                                    item.submenu.map((subItem, subIndex) => {
+                                                         return (
+                                                              <li key={subIndex}>
+                                                                <a className="dropdown-item" href="#">{subItem.label}</a>
+                                                              </li>
+                                                         )
+                                                    })
+                                                  }
+                                             </ul>
+                                        </li>
+                                      )
+                               }
                                return (
                                    <li className="nav-item" key={index}>
                                        <a className="nav-link" href="#">{item.label}</a>
