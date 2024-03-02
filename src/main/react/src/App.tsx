@@ -13,7 +13,7 @@ class App extends React.Component<Props> {
         const {name} = this.props;
         return (
             <>
-                <Header brand={name} menu={["menu01", "menu-2", "Menu03", "menu_4"]}/>
+                <Header brand={name}/>
                 <div className="container">
                     <div className="row">
                         <div className="col">col1</div>

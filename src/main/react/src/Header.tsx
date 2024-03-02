@@ -8,7 +8,7 @@ interface Props {
 }
 const Header = ({brand}: Props):React.JSX.Element => {
 
-    const [menuItems, setMenuItems] = useState<string[]>(["aaa", "bbb", "ccc"])
+    const [menuItems, setMenuItems] = useState<string[]>(["error fetching menu"])
 
     useEffect(() => {
         console.log('Header mounted')
@@ -23,9 +23,9 @@ const Header = ({brand}: Props):React.JSX.Element => {
 
    return (
        <div className="container">
-           <nav className="navbar navbar-expand-lg navbar-light bg-light">
+           <nav className="navbar navbar-expand-md navbar-light bg-light">
                <a className="navbar-brand" href="#">{brand}</a>
-               <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+               <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                    <span className="navbar-toggler-icon"></span>
                </button>
