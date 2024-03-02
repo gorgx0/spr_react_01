@@ -33,3 +33,7 @@ build/
 .vscode/
 
 **/node_modules
+**/.cache
+node/
+.parcel-cache
+**/dist
