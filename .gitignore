@@ -37,3 +37,4 @@ build/
 node/
 .parcel-cache
 **/dist
+/src/main/resources/static/

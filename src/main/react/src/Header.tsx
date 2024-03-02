@@ -1,12 +1,24 @@
 import * as React from 'react';
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import {useEffect} from "react";
 
 interface Props {
     brand: string
     menu: string[]
 }
 const Header = ({brand, menu}: Props):React.JSX.Element => {
+
+    useEffect(() => {
+        console.log('Header mounted')
+        const fetchData = async (url: string) => {
+            const response = await fetch(url)
+            const data = await response.json()
+            console.log(data)
+        }
+        fetchData('http://localhost:8080/api/menu').then(r => console.log(r))
+    })
+
    return (
        <div className="container">
            <nav className="navbar navbar-expand-lg navbar-light bg-light">
