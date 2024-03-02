@@ -1,13 +1,14 @@
 import * as React from 'react';
+import {useEffect, useState} from 'react';
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {useEffect} from "react";
 
 interface Props {
     brand: string
-    menu: string[]
 }
-const Header = ({brand, menu}: Props):React.JSX.Element => {
+const Header = ({brand}: Props):React.JSX.Element => {
+
+    const [menuItems, setMenuItems] = useState<string[]>(["aaa", "bbb", "ccc"])
 
     useEffect(() => {
         console.log('Header mounted')
@@ -15,9 +16,10 @@ const Header = ({brand, menu}: Props):React.JSX.Element => {
             const response = await fetch(url)
             const data = await response.json()
             console.log(data)
+            return data
         }
-        fetchData('http://localhost:8080/api/menu').then(r => console.log(r))
-    })
+        fetchData('http://localhost:8080/api/menu').then(r => setMenuItems(r as string[]))
+    }, [])
 
    return (
        <div className="container">
@@ -29,11 +31,15 @@ const Header = ({brand, menu}: Props):React.JSX.Element => {
                </button>
                <div className="collapse navbar-collapse" id="navbarNav">
                    <ul className="navbar-nav">
-                       {menu.map((item, index) => (
-                           <li className="nav-item" key={index}>
-                               <a className="nav-link" href="#">{item}</a>
-                           </li>
-                       ))}
+                       {
+                           menuItems.map((item, index) => {
+                               return (
+                                   <li className="nav-item" key={index}>
+                                       <a className="nav-link" href="#">{item}</a>
+                                   </li>
+                               )
+                           })
+                       }
                    </ul>
                </div>
            </nav>
