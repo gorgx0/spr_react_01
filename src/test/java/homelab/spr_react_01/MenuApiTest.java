@@ -22,7 +22,7 @@ public class MenuApiTest {
         this.mockMvc.perform(get("/api/menu"))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(content().json("[\"Menu01\",\"Menu02\",\"Menu03\"]"));
+                .andExpect(content().json("[{\"label\": \"Menu01\"}, {\"label\": \"Menu02\"}, {\"label\": \"Menu03\"}]"));
     }
 
 }

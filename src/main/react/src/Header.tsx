@@ -6,9 +6,14 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 interface Props {
     brand: string
 }
+
+interface MainMenuItem {
+    label: string
+}
+
 const Header = ({brand}: Props):React.JSX.Element => {
 
-    const [menuItems, setMenuItems] = useState<string[]>(["error fetching menu"])
+    const [menuItems, setMenuItems] = useState<MainMenuItem[]>([{ label: "error fetching menu" }])
 
     useEffect(() => {
         console.log('Header mounted')
@@ -18,7 +23,7 @@ const Header = ({brand}: Props):React.JSX.Element => {
             console.log(data)
             return data
         }
-        fetchData('http://localhost:8080/api/menu').then(r => setMenuItems(r as string[]))
+        fetchData('http://localhost:8080/api/menu').then(r => setMenuItems(r as MainMenuItem[]))
     }, [])
 
    return (
@@ -35,7 +40,7 @@ const Header = ({brand}: Props):React.JSX.Element => {
                            menuItems.map((item, index) => {
                                return (
                                    <li className="nav-item" key={index}>
-                                       <a className="nav-link" href="#">{item}</a>
+                                       <a className="nav-link" href="#">{item.label}</a>
                                    </li>
                                )
                            })
